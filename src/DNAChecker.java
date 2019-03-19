@@ -22,27 +22,30 @@ public class DNAChecker{
         long countPalindrome = 0;
         long countQuasiPalindrome = 0;
         BufferedReader br = new BufferedReader(new FileReader(file));
+        StringBuilder completeSeq = new StringBuilder();
         while ((seq = br.readLine()) != null){
-            System.out.println(seq);
-            System.out.println("Enter the minimum length of palindrome needed (must be >= 4)");
-            int min_length = Integer.parseInt(read.readLine()) - 1;
-            System.out.println("Enter the maximum length of palindrome needed (must be < Length of sequence)");
-            int max_length = Integer.parseInt(read.readLine());
-            int check = min_length;
-            while(check <= max_length){
-                for (int i = 0 ; i < seq.length() - check; i++ ) {
-                    String toBeChecked = seq.substring(i, i+check+1);
-                    if (isPalindrome(toBeChecked)) {
-                        if (toBeChecked.length()%2==0) {
-                            countPalindrome++;
-                        }
-                        else
-                            countQuasiPalindrome++;
-                        System.out.println(toBeChecked);
+            completeSeq.append(seq);
+            completeSeq.trimToSize();
+        }
+        seq = completeSeq.toString();
+        System.out.println("Enter the minimum length of palindrome needed (must be >= 4)");
+        int min_length = Integer.parseInt(read.readLine()) - 1;
+        System.out.println("Enter the maximum length of palindrome needed (must be < Length of sequence)");
+        int max_length = Integer.parseInt(read.readLine());
+        int check = min_length;
+        while(check <= max_length){
+            for (int i = 0 ; i < seq.length() - check; i++ ) {
+                String toBeChecked = seq.substring(i, i+check+1);
+                if (isPalindrome(toBeChecked)) {
+                    if (toBeChecked.length()%2==0) {
+                        countPalindrome++;
                     }
+                    else
+                        countQuasiPalindrome++;
+                    System.out.println(toBeChecked);
                 }
-                check++;
             }
+            check++;
         }
         System.out.println("The Number of palindrome occurances in the DNA Strand"+countPalindrome);
         System.out.println("The Number of quasi-palindrome occurances in the DNA Strand"+countQuasiPalindrome);
