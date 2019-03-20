@@ -9,7 +9,11 @@ public class DNAChecker{
         code.put("G", "C");
         code.put("C", "G");
         for (int i = 0 ; i < seq.length()/2 ; i++) {
-            if (!(code.get(Character.toString(seq.charAt(i))).equals(Character.toString(seq.charAt(seq.length()-i-1)))))
+            if (code.containsKey(Character.toString(seq.charAt(i)))){
+                if (!(code.get(Character.toString(seq.charAt(i))).equals(Character.toString(seq.charAt(seq.length()-i-1)))))
+                return false;
+            }
+            else
                 return false;
         }
         return true;
@@ -17,7 +21,7 @@ public class DNAChecker{
     public static void main(String[] args)throws IOException {
         String seq;
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-        String path = "~/DNA-Palindrome/seq/input.txt";
+        String path = "~DNA-Palindrome/seq/input.txt";
         File file = new File(path);
         long countPalindrome = 0;
         long countQuasiPalindrome = 0;
@@ -33,7 +37,7 @@ public class DNAChecker{
         System.out.println("Enter the maximum length of palindrome needed (must be < Length of sequence)");
         int max_length = Integer.parseInt(read.readLine());
         int check = min_length;
-        while(check <= max_length){
+        while(check < max_length){
             for (int i = 0 ; i < seq.length() - check; i++ ) {
                 String toBeChecked = seq.substring(i, i+check+1);
                 if (isPalindrome(toBeChecked)) {
@@ -47,7 +51,7 @@ public class DNAChecker{
             }
             check++;
         }
-        System.out.println("The Number of palindrome occurances in the DNA Strand"+countPalindrome);
-        System.out.println("The Number of quasi-palindrome occurances in the DNA Strand"+countQuasiPalindrome);
+        System.out.println("The Number of palindrome occurances in the DNA Strand "+countPalindrome);
+        System.out.println("The Number of quasi-palindrome occurances in the DNA Strand "+countQuasiPalindrome);
     }
 }
